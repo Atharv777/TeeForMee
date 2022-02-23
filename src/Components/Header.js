@@ -34,12 +34,13 @@ export default function Header() {
                     <MdPersonOutline className="hidden group-hover:block" />
 
                     <div className="-top-2 -right-2 absolute">
-                        {/* <p className="w-5 h-5 text-center text-sm bg-red-500 rounded-full">2</p> */}
                     </div>
                 </div>
                 <div className="group mx-2 relative">
-                    <RiHeartFill className="group-hover:hidden" />
-                    <RiHeartLine className="hidden group-hover:block" />
+                    <Link to="/wishlist">
+                        <RiHeartFill className="group-hover:hidden" />
+                        <RiHeartLine className="hidden group-hover:block" />
+                    </Link>
 
                     <div className="-top-2 -right-2 absolute">
                         {Loved.length >= 1 && <p className="w-5 h-5 text-center text-sm bg-red-500 rounded-full">{Loved.length}</p>}

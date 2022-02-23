@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet'
 
 import UserContext from "../Context/User/UserContext"
 
-import { RiHeartLine, RiHeartFill, RiShoppingCart2Line, RiShoppingCart2Fill } from "react-icons/ri"
+import { RiHeartLine, RiShoppingCart2Line } from "react-icons/ri"
 
 import { AiFillStar } from "react-icons/ai"
 
@@ -67,8 +67,8 @@ export default function ProductDetailPage() {
                             <div className="px-2">
                                 <div className="flex flex-row">
                                     <p className="mx-1 text-3xl font-bold">₹ {product.price}</p>
-                                    <p className="mx-1 text-2xl line-through text-gray-600">₹{parseInt(product.price) + 500}</p>
-                                    <p className="mx-1 text-2xl text-red-500 ">({Math.floor(50000 / (parseInt(product.price) + 500))}% OFF)</p>
+                                    <p className="mx-1 text-2xl line-through text-gray-600">₹{parseInt(product.price) + 501}</p>
+                                    <p className="mx-1 text-2xl text-red-500 ">({Math.floor(50000 / (parseInt(product.price) + 501))}% OFF)</p>
                                 </div>
                                 <p className="text-gray-500 text-xs">Inclusive of taxes</p>
                             </div>
@@ -120,7 +120,7 @@ export default function ProductDetailPage() {
                                             onClick={
                                                 !Cart.some(e => e.productId === product.productId)
                                                     && selectedSize
-                                                    ? () => setCart([...Cart, { productId: product.productId, product: product, size: selectedSize, quantity: 1 }])
+                                                    ? () => setCart([...Cart, { productId: product.productId, product: product, price: product.price, size: selectedSize, quantity: 1 }])
                                                     : () => {
                                                         setErrorAnim(true);
                                                         setSizeError("Please select a Size!")

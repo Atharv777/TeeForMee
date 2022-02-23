@@ -28,11 +28,7 @@ export default function CategoryPage({ categoryName }) {
             <Helmet>
                 <title>{"TeeForMee | " + categoryName + " T-shirts"}</title>
             </Helmet>
-            <div className="flex flex-row justify-between">
-                <div className="w-1/4 h-full">
-
-                </div>
-
+            <div className="flex flex-row justify-center">
                 <ProductsList products={products} />
             </div>
         </div>

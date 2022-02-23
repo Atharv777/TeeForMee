@@ -15,10 +15,10 @@ export default function Card({ productId, title, fabric, description, imgUrl, pr
                 <div className="transition group-hover:visible invisible bg-slant z-10 absolute top-0 right-0 p-5 flex justify-end w-full h-1/3">
                     <div className="mx-1 hover:cursor-pointer h-[30px]">
                         {
-                            Loved.includes(productId)
+                            Loved.some(e => e.productId === productId)
                                 ? <div
                                     onClick={() => {
-                                        Loved.includes(productId) && setLoved(Loved.filter((item, i) => i !== Loved.indexOf(productId)))
+                                        Loved.some(e => e.productId === productId) && setLoved(Loved.filter((item, i) => i !== Loved.findIndex(x => x.productId === productId)))
                                     }}
                                     className="text-3xl text-red-500">
                                     <RiHeartFill />
@@ -26,7 +26,8 @@ export default function Card({ productId, title, fabric, description, imgUrl, pr
 
                                 : <div
                                     onClick={() => {
-                                        !Loved.includes(productId) && setLoved([...Loved, productId])
+                                        !Loved.some(e => e.productId === productId)
+                                            && setLoved([...Loved, { productId: productId, title: title, fabric: fabric, imgUrl: imgUrl, price: price, category: category }])
                                     }}
                                     className="text-3xl text-red-500">
                                     <RiHeartLine />

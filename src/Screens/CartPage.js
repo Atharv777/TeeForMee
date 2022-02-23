@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import UserContext from "../Context/User/UserContext"
 
 import { Helmet } from 'react-helmet'
@@ -7,9 +7,11 @@ import CartItemCard from '../Components/CartItemCard';
 
 export default function CartPage() {
 
-    const { Loved, setLoved, Cart, setCart } = useContext(UserContext);
-    const [GradientDeg, setGradientDeg] = useState(0)
-
+    const { Cart } = useContext(UserContext);
+    const CartPrices = Cart.map(item => { return (parseInt(item.price) + (parseInt(item.quantity) * 501)) })
+    const CartQuantities = Cart.map(item => { return (parseInt(item.quantity)) })
+    const TotalMRP = CartPrices.reduce((partialSum, a) => partialSum + a, 0)
+    const TotalItems = CartQuantities.reduce((partialSum, a) => partialSum + a, 0)
 
 
     return (
@@ -33,16 +35,34 @@ export default function CartPage() {
                             )
                         })}
                     </div>
-                    <div className="w-[40vw] p-14">
-                        <div className="my-5 rounded-lg w-full py-3 shadow-lg divide-y-2 px-5 bg-black text-white">
-                            <p className="text-center text-xl">Try using cupons</p>
-                        </div>
+                    <div className="w-[40vw] p-14 flex flex-col max-h-screen overflow-y-auto h-[calc(100vh-9.25rem)]">
 
                         <div className="my-5 rounded-lg w-full py-3 shadow-lg divide-y-2 px-5">
                             <p className="font-bold text-gray-600 text-center text-2xl">Price Summary</p>
+                            <div className="py-5">
+                                <div className="flex flex-row justify-between my-1">
+                                    <p className="text-gray-700"><span className="font-bold">Total MRP </span>({Cart.length} items):</p>
+                                    <p className="font-bold">₹{TotalMRP}</p>
+                                </div>
+                                <div className="flex flex-row justify-between my-1">
+                                    <p className="text-gray-700">Discount on MRP:</p>
+                                    <p className="font-bold text-green-600">- ₹{501 * TotalItems}</p>
+                                </div>
+                                <div className="flex flex-row justify-between my-1">
+                                    <p className="text-gray-700">Delivery Charges:</p>
+                                    <p className="text-green-600">Free</p>
+                                </div>
+                            </div>
+                            <div className="flex flex-row justify-between py-5">
+                                <p className="font-bold text-2xl">Total Amount:</p>
+                                <p className="text-2xl font-bold">₹{TotalMRP - (501 * TotalItems)}</p>
+                            </div>
+                            <div>
+                                <p className="py-3 text-center text-green-600">You will save ₹{501 * TotalItems} on this order</p>
+                                <button className="bg-black rounded-xl w-full py-2 text-white text-2xl">PLACE ORDER</button>
+                            </div>
                         </div>
                     </div>
-
                 </div>
 
 

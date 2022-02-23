@@ -11,7 +11,6 @@ export default function Home() {
 
     useEffect(() => {
         try {
-
             onSnapshot(collection(db, "products"), (snapshot) => {
                 const product = [];
                 snapshot.forEach((doc) => {
@@ -30,11 +29,7 @@ export default function Home() {
             <Helmet>
                 <title>{"TeeForMee | Home"}</title>
             </Helmet>
-            <div className="flex flex-row justify-between">
-                <div className="w-[25vw] h-full">
-
-                </div>
-
+            <div className="flex flex-row justify-center">
                 <ProductsList products={products} />
             </div>
         </div>)

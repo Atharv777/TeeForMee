@@ -7,7 +7,7 @@ import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri"
 
 export default function CartItemCard({ productId }) {
 
-    const { Loved, setLoved, Cart, setCart } = useContext(UserContext);
+    const { Cart, setCart, UpdateQuantity } = useContext(UserContext);
     const [data, setData] = useState(null);
 
     const [selectedSize, setSelectedSize] = useState(null);
@@ -19,7 +19,7 @@ export default function CartItemCard({ productId }) {
         setData(Cart[tempindex])
         setSelectedSize(Cart[tempindex].size)
         setSelectedQuantity(Cart[tempindex].quantity)
-    }, [])
+    }, [Cart])
 
 
     return (
@@ -45,13 +45,7 @@ export default function CartItemCard({ productId }) {
                                 <p className="text-lg">Quantity: </p>
                                 <div className="flex flex-row items-center px-3 py-2 bg-gray-100">
                                     <div
-                                        onClick={() => {
-                                            const tempCart = Cart;
-                                            const tempIndex = Cart.findIndex(obj => obj.productId === productId);
-                                            tempCart[tempIndex].quantity = selectedQuantity - 1;
-                                            setSelectedQuantity(selectedQuantity - 1)
-                                            setCart(tempCart);
-                                        }}
+                                        onClick={() => { UpdateQuantity(productId, "Subtract") }}
                                         className="cursor-pointer mx-1 text-xl">
                                         <IoRemoveCircle />
                                     </div>
@@ -59,13 +53,7 @@ export default function CartItemCard({ productId }) {
                                     <p className="text-base font-bold mx-1">{selectedQuantity}</p>
 
                                     <div
-                                        onClick={() => {
-                                            const tempCart = Cart;
-                                            const tempIndex = Cart.findIndex(obj => obj.productId === productId);
-                                            tempCart[tempIndex].quantity = selectedQuantity + 1;
-                                            setSelectedQuantity(selectedQuantity + 1)
-                                            setCart(tempCart);
-                                        }}
+                                        onClick={() => { UpdateQuantity(productId, "Add") }}
                                         className="cursor-pointer mx-1 text-xl">
                                         <IoAddCircle />
                                     </div>
@@ -76,9 +64,11 @@ export default function CartItemCard({ productId }) {
 
                         <div>
                             <div className="flex flex-row">
-                                <p className="mx-1 text-xl font-bold">₹ {data.product.price}</p>
-                                <p className="mx-1 text-lg line-through text-gray-600">₹{parseInt(data.product.price) + 500}</p>
-                                <p className="mx-1 text-lg text-red-500 ">({Math.floor(50000 / (parseInt(data.product.price) + 500))}% OFF)</p>
+                                <p className="mx-1 text-xl font-bold">
+                                    ₹ {parseInt(data.product.price)}
+                                </p>
+                                <p className="mx-1 text-lg line-through text-gray-600">₹{parseInt(data.product.price) + 501}</p>
+                                <p className="mx-1 text-lg text-red-500 ">({Math.floor(50000 / (parseInt(data.product.price) + 501))}% OFF)</p>
                             </div>
                             <p className="text-gray-500 text-xs">Inclusive of taxes</p>
                         </div>
